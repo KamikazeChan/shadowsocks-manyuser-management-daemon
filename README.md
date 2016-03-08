@@ -1,0 +1,1 @@
+# shadowsocks-manyuser-management-daemon
