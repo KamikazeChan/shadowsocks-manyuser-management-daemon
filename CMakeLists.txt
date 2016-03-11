@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 3.3)
 project(shadowsocks_manyuser_management_daemon)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-
-set(SOURCE_FILES src/server.c)
-add_executable(shadowsocks_manyuser_management_daemon ${SOURCE_FILES})
+set(start_servers_source_files
+        src/start_servers.c
+        )
+add_executable(start_servers ${start_servers_source_files})
+set(start_servers_link_libraries
+        /usr/lib/x86_64-linux-gnu/libmysqlclient.so
+)
+target_link_libraries(start_servers ${start_servers_link_libraries})
