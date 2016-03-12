@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <mysql/mysql.h>
 #include <string.h>
+#include <sys/wait.h>
 #include "iniparser.h"
 
 struct Config_File
@@ -64,13 +65,13 @@ bool read_config()
     return true;
 }
 
-void create_server(struct Server_Info *server_config)
+void create_server(struct Server_Info *server_info)
 {
     int pid;
     char port[5];
-    sprintf(port, "%d", server_config->port);
+    sprintf(port, "%d", server_info->port);
     char *exec_path = "/usr/local/bin/ss-server";
-    char *exec_arg[] = {"ss-server", "-s", config_file.server_ip, "-p", port, "-k", server_config->password, "-m", server_config->encrypt_method, NULL};
+    char *exec_arg[] = {"ss-server", "-s", config_file.server_ip, "-p", port, "-k", server_info->password, "-m", server_info->encrypt_method, NULL};
     char *exec_envp[] = {NULL};
     pid = fork();
     if (pid == 0) {
@@ -80,7 +81,7 @@ void create_server(struct Server_Info *server_config)
         execve(exec_path, exec_arg, exec_envp);
     }
     else if (pid > 0)
-        printf("创建进程 pid=%d port=%d password=%s encrypt_method=%s\n",pid,server_config->port,server_config->password,server_config->encrypt_method);
+        printf("创建进程 pid=%d port=%d password=%s encrypt_method=%s\n", pid, server_info->port, server_info->password,server_info->encrypt_method);
     else
         printf("fork失败\n");
 }
@@ -113,21 +114,24 @@ int main() {
         mysql_result=mysql_store_result(&mysql_connection);
         while(mysql_row=mysql_fetch_row(mysql_result))
         {
-            //printf("%s %s %s %s %s %s\n",mysql_row[0],mysql_row[1],mysql_row[2],mysql_row[3],mysql_row[4],mysql_row[5]);
             server_info.port=atoi(mysql_row[0]);
             strcpy(server_info.password, mysql_row[1]);
             stpcpy(server_info.encrypt_method, mysql_row[2]);
             server_info.udp_relay=atoi(mysql_row[3]);
             server_info.fast_open=atoi(mysql_row[4]);
 
-            int pid,port;
-            char password[16];
-            char encrypt_method[32];
+            int pid,port,control=0;
+            char password[16],encrypt_method[32],ps_output[256];
             FILE *pp;
             pp=popen("ps -ef | grep ss-server | grep -v ps | grep -v grep | awk '{print $2,$12,$14,$16}'","r");
-            int control=0;
-            while(fscanf(pp,"%d %d %s %s",&pid,&port,password,encrypt_method)!=EOF)
+            while(fgets(ps_output,256,pp))
             {
+                if(sscanf(ps_output,"%d %d %s %s\n",&pid,&port,password,encrypt_method)!=4)
+                {
+                    waitpid(pid,NULL,0);
+                    printf("进程 pid=%d 崩溃,已被销毁\n",pid);
+                    continue;
+                }
                 if(port==server_info.port)
                 {
                     if(strcmp(password,server_info.password)==0&&strcmp(encrypt_method,server_info.encrypt_method)==0)
@@ -138,8 +142,10 @@ int main() {
                     else
                     {
                         char command[32];
-                        sprintf(command,"kill %d",pid);
+                        sprintf(command,"kill -9 %d",pid);
                         system(command);
+                        waitpid(pid,NULL,0);
+                        printf("为更新数据而销毁进程 pid=%d port=%d password=%s encrypt_method=%s\n", pid, port,password,encrypt_method);
                         break;
                     }
                 }
