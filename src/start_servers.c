@@ -122,11 +122,7 @@ void create_server(struct Server_Info *server_info)
         close(0);   //关闭输入输出
         close(1);
         close(2);
-        if(execve(exec_path, exec_arg, exec_envp)==-1)
-        {
-            printf("FAILED ");
-            exit(-1);
-        }
+        execve(exec_path, exec_arg, exec_envp);
     }
     else if (pid > 0)
         printf("创建进程 pid=%d port=%d password=%s encrypt_method=%s\n", pid, server_info->port, server_info->password,server_info->encrypt_method);
