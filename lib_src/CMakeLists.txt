@@ -6,3 +6,4 @@ add_library(iniparser SHARED
         dictionary.c
         iniparser.c
         )
+
