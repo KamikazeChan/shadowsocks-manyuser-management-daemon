@@ -208,8 +208,8 @@ int main()
             pclose(pp);
         }
 
-        error:
         mysql_free_result(mysql_result);    //这三步完全释放mysql库内存
+        error:
         mysql_close(&mysql_connection);
         mysql_library_end();    //这一步绝对不能少,否则产生内存泄露
 
