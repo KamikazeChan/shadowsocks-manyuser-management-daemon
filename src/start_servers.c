@@ -58,6 +58,7 @@ bool create_config_file()
             "\n"
             "\n"
             "[column_config]\n"
+            "\n"
             "port = port ;\n"
             "password = passwd ;\n"
             "encrypt_method = encrypt_method ;\n"
