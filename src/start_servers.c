@@ -2,10 +2,10 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <unistd.h>
-#include <mysql/mysql.h>
 #include <string.h>
 #include <sys/wait.h>
 #include "iniparser.h"
+#include "mysql/mysql.h"
 
 struct Config_File
 {
