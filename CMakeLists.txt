@@ -5,12 +5,10 @@ add_subdirectory(lib)
 
 include_directories(lib/iniparser)
 include_directories(lib/mysqlclient)
-link_directories(
-        lib/iniparser
-        lib/mysqlclient
-        )
+link_directories(lib/iniparser)
+link_directories(lib/mysqlclient)
 add_executable(start_servers start_servers.c)
 target_link_libraries(start_servers
         iniparser
-        mysqlclient
+        libmysqlclient.so
         )
