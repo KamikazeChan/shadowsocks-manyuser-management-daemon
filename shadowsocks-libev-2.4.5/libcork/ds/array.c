@@ -234,7 +234,7 @@ cork_raw_array_copy(struct cork_raw_array *dest,
     cork_array_clear(dest);
     cork_array_ensure_size(dest, src->size);
 
-    /* Initialize enough elements to hold the contents of src */
+    /* Initialize enough elements to hold the contents of management-daemon */
     reuse_count = dest->priv->initialized_count;
     if (src->size < reuse_count) {
         reuse_count = src->size;

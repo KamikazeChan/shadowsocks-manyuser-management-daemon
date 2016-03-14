@@ -361,7 +361,7 @@ cork_ipv6_to_raw_string(const struct cork_ipv6 *addr, char *dest)
     /*
      * Preprocess:
      *      Copy the input (bytewise) array into a wordwise array.
-     *      Find the longest run of 0x00's in src[] for :: shorthanding.
+     *      Find the longest run of 0x00's in management-daemon[] for :: shorthanding.
      */
     memset(words, '\0', sizeof words);
     for (i = 0; i < NS_IN6ADDRSZ; i++)

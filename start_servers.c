@@ -28,14 +28,14 @@ struct Config_File
     char server_group[32];
 }config_file;   //全局变量
 
-struct Server_Info
+struct Server_Info    //创建服务端时传入的数据
 {
     int port;
     char password[16];
     char encrypt_method[32];
     bool udp_relay;
     bool fast_open;
-};  //创建服务端时传入的数据
+};
 
 bool create_config_file()
 {
@@ -209,7 +209,7 @@ int main()
         }
 
         mysql_free_result(mysql_result);    //这三步完全释放mysql库内存
-        error:
+        error:      //如果跳转到error,那么mysql_result完全没有使用过,不要清理它,否则将double free
         mysql_close(&mysql_connection);
         mysql_library_end();    //这一步绝对不能少,否则产生内存泄露
 

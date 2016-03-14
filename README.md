@@ -1,39 +1,14 @@
 # shadowsocks-manyuser-management-daemon
 
-大致上是要做一个ss多用户管理程序，用来管理shadowsocks-libev。打算用c语言写，然而并不是很精通c语言。
+## 介绍
 
-于是挖个坑把自己埋了。
+这是一个用于管理c语言编写的 shadowsocks-libev 的管理程序,可以访问数据库读取数据,实现多用户功能.
 
-## 使用方法
-
-首先需要安装 [shadowsocks-libev](https://github.com/shadowsocks/shadowsocks-libev) 作为ss服务端.
-
-这里已经自带了 shadowsocks-libev-2.4.5 ,我在服务器上测试的时候发现过旧的版本可能引发bug.而各大发行版源里的基本都比较旧,所以推荐编译安装这份开发时测试用的ss-libev版本.
-
-之后需要一个可以被正确访问的mysql服务器,设置好相关用户名,密码,数据库名,表名.导入本repo中的 mysql_backup_file 文件夹中的mysql备份文件.如果你使用 ss-panel 等前端程序,请不要导入这个备份.请按照你的 ss-panel 的数据库的各个 column 的值设定配置文件中的 column_config 部分从而确保能从 ss-panel 的数据库中获取到相关数据.备份文件中比 ss-panel 数据库多的 column 请手动修改表结构,并设定默认值并将已有记录中的空缺全部填满你想要的值,否则可能产生bug.
-
-配置好以上内容之后开始编译本程序,由于本人技术水平过低,编译过程非常不规范(甚至不知道怎么写makefile).(我不太会用git,源码请直接从release页面下载,直接git clone可能克隆到IDE自动push上来的半成品).
-
-解压完毕后进入目录并使用如下命令(由于使用了linux相关命令,无法运行于windows系统)
-
-```bash
-cmake CMakeLists.txt
-make
-```
-用到的库我会尽量自带,应该能正确编译通过.其中 libmysqlclient 需要 glibc 版本 2.14 以上, centos6 一般是 2.12 ,可能无法使用.
-
-编译完成后使用如下命令启动它
-
-```bash
-cd src
-./start_server
-```
-
-运行的前提是已经安装好正确版本的 shadowsocks-libev 服务端.否则将看到不停显示产生同一个进程,其实是没产生.
+类似的repo大多采用python编写,本程序采用c语言编写.
 
 ## 功能
 
-通过标准ini配置文件来改变程序设置
+通过ini配置文件来改变程序设置
 
 自动访问数据库并创建对应服务端(一个服务端一个端口)
 
@@ -48,6 +23,58 @@ cd src
 加密方式的值将放到数据库中,可以进行修改,而不是全部采用统一加密方式.
 
 数据库设计大体上兼容 ss-panel , ss-panel 没有的功能我可能考虑开发 whmcs 插件来完全配套本程序(自动化shadowsocks销售).
+
+## 使用方法
+
+首先需要安装 [shadowsocks-libev](https://github.com/shadowsocks/shadowsocks-libev) 作为ss服务端.
+
+不同版本可能出现问题,因此推荐直接编译安装这里自带的shadowsocks-libev-2.4.5,可能会有依赖缺失,请自行安装.
+
+```bash
+sudo apt-get install git make gcc g++ build-essential autoconf libtool libssl-dev
+git clone https://github.com/czp3009/shadowsocks-manyuser-management-daemon.git
+cd shadowsocks-manyuser-management-daemon
+cd shadowsocks-libev-2.4.5
+./configure
+sudo make && make install
+```
+
+安装完毕shadowsocks-libev之后输入 ss-server --help ,出现帮助即说明安装成功.之后编译安装本程序.
+
+```bash
+sudo apt-get install cmake
+cd ..
+cmake .
+make
+```
+
+编译完毕后运行程序
+
+```bash
+./start_servers
+```
+
+程序配置文件将生成在主程序同级目录下,名为 config.ini ,设置比较简单,这里不做赘述.
+
+libmysqlclient.so.18.0.0 需要 glibc 版本为2.14以上,过低版本的linux可能无法运行.同时这份文件由于体积较大没有提供源码,如果你的cpu不是amd64架构,请自行安装并调整cmake链接设定.
+
+```bash
+sudo apt-get install libmysqlclient-dev
+```
+
+## 尚在实现中
+
+使用更优算法来管理进程
+
+实现用户自助设置 udp_relay 和 fast_open
+
+whmcs插件和页面
+
+交互式控制台
+
+配置文件重载功能
+
+扩展插件功能
 
 ## 下载
 
