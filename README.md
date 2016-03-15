@@ -59,12 +59,6 @@ cd bin
 
 程序配置文件将生成在主程序同级目录下,名为 config.ini ,设置比较简单,这里不做赘述.
 
-libmysqlclient.so.18.0.0 需要 glibc 版本为2.14以上,过低版本的linux可能无法运行.同时这份文件由于体积较大没有提供源码,如果你的cpu不是amd64架构,请自行安装并调整cmake链接设定.
-
-```bash
-sudo apt-get install libmysqlclient-dev
-```
-
 ## 尚在实现中
 
 使用更优算法来管理进程
@@ -76,8 +70,6 @@ whmcs插件和页面
 交互式控制台
 
 配置文件重载功能
-
-扩展插件功能
 
 ## 下载
 
