@@ -7,7 +7,6 @@ include_directories(
 )
 link_directories(
         lib/iniparser
-        ../lib/mysqlclient
 )
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/../bin)
 add_executable(start_servers start_servers.c)
