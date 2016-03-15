@@ -6,12 +6,12 @@ include_directories(
         ../lib/mysqlclient
 )
 link_directories(
-        ../bin/lib/iniparser
-        ../lib/mysqlclient/mysql
+        lib/iniparser
+        ../lib/mysqlclient
 )
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/../bin)
 add_executable(start_servers start_servers.c)
 target_link_libraries(start_servers
         iniparser
-        libmysqlclient.so.18
+        mysqlclient
         )
