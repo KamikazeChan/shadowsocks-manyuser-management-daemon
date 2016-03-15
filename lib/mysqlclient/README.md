@@ -10,6 +10,8 @@
 sudo apt-get install libmysqlclient18
 ```
 
+本目录下带有一份适用于amd64设备的libmysqlclient.so.18.0.0,可以直接放入如下路径 /usr/lib/x86_64-linux-gnu/libmysqlclient.so.18 必要时设定ln -s.
+
 访问 [Oracle官网](http://dev.mysql.com/downloads/mysql/5.5.html) 获得更多信息.
 
 该链接库用于c语言访问mysql5.5(经测试,访问mysql5.6没有异常).
