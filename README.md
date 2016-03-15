@@ -2,13 +2,9 @@
 
 ## 介绍
 
-这是一个用于管理c语言编写的 shadowsocks-libev 的管理程序,可以访问数据库读取数据,实现多用户功能.
-
-类似的repo大多采用python编写,本程序采用c语言编写.
+这是一个用于管理c语言编写的 shadowsocks 服务端 shadowsocks-libev 的管理程序,可以访问数据库读取数据,并创建多个本地进程,实现多用户功能.
 
 ## 功能
-
-通过ini配置文件来改变程序设置
 
 自动访问数据库并创建对应服务端(一个服务端一个端口)
 
@@ -39,18 +35,25 @@ cd shadowsocks-libev-2.4.5
 sudo make && make install
 ```
 
-安装完毕shadowsocks-libev之后输入 ss-server --help ,出现帮助即说明安装成功.之后编译安装本程序.
+安装完毕shadowsocks-libev之后输入 ss-server --help ,出现帮助即说明安装成功.
+
+本程序需要额外的动态链接库 [libmysqlclient18](mysqlclient/README.md) ,请先满足这个依赖.
+
+完成以上步骤之后编译本程序(假设工作目录在编译 ss-libev 完成后没有改变).
 
 ```bash
 sudo apt-get install cmake
 cd ..
-cmake .
+cd build
+cmake ..
 make
 ```
 
 编译完毕后运行程序
 
 ```bash
+cd ..
+cd bin
 ./start_servers
 ```
 

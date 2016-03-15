@@ -3,12 +3,14 @@ project(shadowsocks_manyuser_management_daemon)
 
 add_subdirectory(lib)
 
-include_directories(lib/iniparser)
-include_directories(lib/mysqlclient)
+include_directories(
+        lib/iniparser
+        lib/mysqlclient
+)
 link_directories(lib/iniparser)
-link_directories(lib/mysqlclient)
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 add_executable(start_servers start_servers.c)
 target_link_libraries(start_servers
         iniparser
-        libmysqlclient.so
+        mysqlclient
         )
