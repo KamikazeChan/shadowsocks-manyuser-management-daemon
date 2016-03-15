@@ -8,7 +8,8 @@
       <sourceFolder url="file://$MODULE_DIR$/lib/iniparser/iniparser.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/lib/iniparser/dictionary.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/lib/CMakeLists.txt" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/start_servers.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/start_servers.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
