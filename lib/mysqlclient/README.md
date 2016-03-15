@@ -15,3 +15,5 @@ sudo apt-get install libmysqlclient18
 访问 [Oracle官网](http://dev.mysql.com/downloads/mysql/5.5.html) 获得更多信息.
 
 该链接库用于c语言访问mysql5.5(经测试,访问mysql5.6没有异常).
+
+过低版本的libmysqlclient也可以链接,但是不保证不出现问题.
