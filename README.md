@@ -49,7 +49,7 @@ cmake ..
 make
 ```
 
-编译完毕后运行程序
+编译完毕后运行程序,正确运行本程序你需要一个配置正确的 [mysql数据表](https://github.com/czp3009/shadowsocks-manyuser-management-daemon/tree/master/mysql_backup_file) .
 
 ```bash
 cd ..
