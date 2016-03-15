@@ -7,6 +7,12 @@ include_directories(
 )
 link_directories(
         lib/iniparser
+        /usr/lib64
+        /usr/lib
+        /usr/lib64/mysql
+        /usr/lib/mysql
+        /usr/lib/x86_64-linux-gnu/
+        /usr/lib/x86-linux-gnu/
 )
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/../bin)
 add_executable(start_servers start_servers.c)
