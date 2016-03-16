@@ -5,7 +5,11 @@ include_directories(
         ../lib/iniparser/iniparser-4.0/src
         ../lib/mysql
 )
-if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86")
+if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i386")
+    add_library(mysqlclient SHARED IMPORTED)
+    set_property(TARGET mysqlclient PROPERTY IMPORTED_LOCATION ${PROJECT_SOURCE_DIR}/../lib/mysql/X86/libmysqlclient.so)
+    link_directories(../lib/mysql/X86)
+elseif (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i686")
     add_library(mysqlclient SHARED IMPORTED)
     set_property(TARGET mysqlclient PROPERTY IMPORTED_LOCATION ${PROJECT_SOURCE_DIR}/../lib/mysql/X86/libmysqlclient.so)
     link_directories(../lib/mysql/X86)
