@@ -37,8 +37,6 @@ sudo make && make install
 
 安装完毕shadowsocks-libev之后输入 ss-server --help ,出现帮助即说明安装成功.
 
-本程序需要额外的动态链接库 [libmysqlclient18](https://github.com/czp3009/shadowsocks-manyuser-management-daemon/tree/master/lib/mysqlclient) ,请先满足这个依赖.
-
 完成以上步骤之后编译本程序(假设工作目录在编译 ss-libev 完成后没有改变).
 
 ```bash
