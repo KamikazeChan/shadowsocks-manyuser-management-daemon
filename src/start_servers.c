@@ -4,8 +4,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <sys/wait.h>
-#include "iniparser.h"
 #include "mysql/mysql.h"
+#include "iniparser.h"
 
 struct Config_File
 {
