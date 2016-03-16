@@ -2,17 +2,11 @@ cmake_minimum_required(VERSION 2.8)
 project(start_servers)
 
 include_directories(
-        ../lib/iniparser
-        ../lib/mysqlclient
+        ../lib/iniparser/iniparser-4.0/src
+        ../lib/mysql/mysql-5.5.48/include
 )
 link_directories(
         lib/iniparser
-        /usr/lib64
-        /usr/lib
-        /usr/lib64/mysql
-        /usr/lib/mysql
-        /usr/lib/x86_64-linux-gnu/
-        /usr/lib/x86-linux-gnu/
 )
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/../bin)
 add_executable(start_servers start_servers.c)

@@ -2,11 +2,11 @@
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/lib/iniparser/iniparser.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lib/iniparser/CMakeLists.txt" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lib/iniparser/dictionary.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lib/iniparser/iniparser.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lib/iniparser/dictionary.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/iniparser/iniparser-4.0/src/iniparser.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/iniparser/iniparser-4.0/src/dictionary.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/iniparser/iniparser-4.0/src/iniparser.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/iniparser/iniparser-4.0/src/dictionary.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/iniparser/iniparser-4.0/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/lib/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/start_servers.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/CMakeLists.txt" isTestSource="false" />
@@ -20,15 +20,23 @@
           <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
           <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
           <root url="file:///usr/local/include" />
-          <root url="file://$MODULE_DIR$/lib/mysqlclient" />
+          <root url="file://$MODULE_DIR$/lib/iniparser/iniparser-4.0/src" />
+          <root url="file://$MODULE_DIR$/lib/mysql/mysql-5.5.48/include" />
         </CLASSES>
         <SOURCES>
           <root url="file:///usr/include" />
           <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
           <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
           <root url="file:///usr/local/include" />
-          <root url="file://$MODULE_DIR$/lib/mysqlclient" />
+          <root url="file://$MODULE_DIR$/lib/iniparser/iniparser-4.0/src" />
+          <root url="file://$MODULE_DIR$/lib/mysql/mysql-5.5.48/include" />
         </SOURCES>
+        <excluded>
+          <root url="file://$MODULE_DIR$/lib/iniparser/iniparser-4.0/src/iniparser.h" />
+          <root url="file://$MODULE_DIR$/lib/iniparser/iniparser-4.0/src/dictionary.c" />
+          <root url="file://$MODULE_DIR$/lib/iniparser/iniparser-4.0/src/iniparser.c" />
+          <root url="file://$MODULE_DIR$/lib/iniparser/iniparser-4.0/src/dictionary.h" />
+        </excluded>
       </library>
     </orderEntry>
   </component>
