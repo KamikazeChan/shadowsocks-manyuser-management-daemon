@@ -21,7 +21,7 @@
           <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
           <root url="file:///usr/local/include" />
           <root url="file://$MODULE_DIR$/lib/iniparser/iniparser-4.0/src" />
-          <root url="file://$MODULE_DIR$/lib/mysql/mysql-5.5.48/include" />
+          <root url="file://$MODULE_DIR$/lib/mysql/include" />
         </CLASSES>
         <SOURCES>
           <root url="file:///usr/include" />
@@ -29,7 +29,7 @@
           <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
           <root url="file:///usr/local/include" />
           <root url="file://$MODULE_DIR$/lib/iniparser/iniparser-4.0/src" />
-          <root url="file://$MODULE_DIR$/lib/mysql/mysql-5.5.48/include" />
+          <root url="file://$MODULE_DIR$/lib/mysql/include" />
         </SOURCES>
         <excluded>
           <root url="file://$MODULE_DIR$/lib/iniparser/iniparser-4.0/src/iniparser.h" />

@@ -3,7 +3,7 @@ project(start_servers)
 
 include_directories(
         ../lib/iniparser/iniparser-4.0/src
-        ../lib/mysql/mysql-5.5.48/include
+        ../lib/mysql/include
 )
 link_directories(
         lib/iniparser
