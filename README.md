@@ -33,7 +33,8 @@ cd shadowsocks-manyuser-management-daemon
 unzip shadowsocks-libev-2.4.5.zip
 cd shadowsocks-libev-2.4.5
 ./configure
-sudo make && make install
+make
+sudo make install
 ```
 
 安装完毕shadowsocks-libev之后输入 ss-server --help ,出现帮助即说明安装成功.
