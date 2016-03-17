@@ -24,12 +24,13 @@
 
 首先需要安装 [shadowsocks-libev](https://github.com/shadowsocks/shadowsocks-libev) 作为ss服务端.
 
-不同版本可能出现问题,因此推荐直接编译安装这里自带的shadowsocks-libev-2.4.5,可能会有依赖缺失,请自行安装.
+不同版本可能出现问题,因此推荐直接编译安装这里自带的 shadowsocks-libev-2.4.5 ,可能会有依赖缺失,请自行安装.
 
 ```bash
 sudo apt-get install git make gcc g++ build-essential autoconf libtool libssl-dev
 git clone https://github.com/czp3009/shadowsocks-manyuser-management-daemon.git
 cd shadowsocks-manyuser-management-daemon
+unzip shadowsocks-libev-2.4.5.zip
 cd shadowsocks-libev-2.4.5
 ./configure
 sudo make && make install

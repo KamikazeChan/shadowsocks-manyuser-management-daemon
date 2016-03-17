@@ -4,8 +4,6 @@
 
 来自于 Linux - Generic 2.6 , Compressed TAR Archive
 
-本目录下已自带 x86 和 x86_64 cpu适用的动态链接库文件以及编译所需要的头文件.
-
 libmysqlclient18 要求 glibc 版本大于 2.14.
 
 ubuntu下的源安装方式
