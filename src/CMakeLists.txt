@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 project(start_servers)
-
+#添加已编译的动态链接库 libmysqlclient.so
 add_library(mysqlclient SHARED IMPORTED)
 if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i386" OR ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i686")
     set_property(TARGET mysqlclient PROPERTY IMPORTED_LOCATION ${PROJECT_SOURCE_DIR}/../bin/lib/mysql/X86/libmysqlclient.so)
