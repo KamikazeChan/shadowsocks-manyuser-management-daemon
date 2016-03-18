@@ -18,7 +18,7 @@ include_directories(
         ../lib/iniparser/iniparser-4.0/src
         ../lib/mysql
 )
-
+#编译主程序
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/../bin)
 add_executable(start_servers start_servers.c)
 target_link_libraries(start_servers

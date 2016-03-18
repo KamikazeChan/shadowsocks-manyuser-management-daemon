@@ -133,7 +133,6 @@ void create_server(struct Server_Info *server_info)
 int main()
 {
     struct Server_Info server_info;
-    printf("载入配置文件中...\n");
     if (read_config())
         printf("已载入配置文件\n");
     else

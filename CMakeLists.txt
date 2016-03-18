@@ -4,3 +4,5 @@ project(shadowsocks_manyuser_management_daemon)
 add_subdirectory(lib)
 
 add_subdirectory(src)
+
+add_subdirectory(src/addons)
