@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include "iniparser.h"
+#include "mysql/mysql.h"
 
 int main()
 {
