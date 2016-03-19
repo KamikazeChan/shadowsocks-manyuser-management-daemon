@@ -77,12 +77,6 @@ bool create_config_file()
 
 bool read_config()
 {
-    FILE *fp;
-    fp=fopen("config.ini","r");
-    if(fp==NULL)
-        return false;
-    else
-        fclose(fp);
     dictionary *ini;
     char *ini_name="config.ini";
     ini=iniparser_load(ini_name);
@@ -125,26 +119,26 @@ void create_server(struct Server_Info *server_info)
         execve(exec_path, exec_arg, exec_envp);
     }
     else if (pid > 0)
-        printf("创建进程 pid=%d port=%d password=%s encrypt_method=%s\n", pid, server_info->port, server_info->password,server_info->encrypt_method);
+        printf("Create process pid=%d port=%d password=%s encrypt_method=%s\n", pid, server_info->port, server_info->password,server_info->encrypt_method);
     else
-        printf("fork失败,可能是进程数限制或内存不足\n");
+        printf("Fork failed\n");
 }
 
 int main()
 {
     struct Server_Info server_info;
     if (read_config())
-        printf("已载入配置文件\n");
+        printf("Loaded config file\n");
     else
     {
         if(create_config_file())
         {
-            printf("配置文件不存在,已生成\n");
+            printf("Created config file\n");
             read_config();
         }
         else
         {
-            printf("生成配置文件 ./config.ini 失败\n");
+            printf("Create config file failed\n");
             exit(-1);
         }
     }
@@ -159,7 +153,7 @@ int main()
         mysql_init(&mysql_connection);
         if(!mysql_real_connect(&mysql_connection, config_file.mysql_host, config_file.mysql_user, config_file.mysql_password, config_file.mysql_database, 0, NULL, 0))
         {
-            printf("数据库连接失败\n");
+            printf("Connect to database failed\n");
             goto error;
         }
         mysql_query(&mysql_connection,query);
@@ -182,7 +176,7 @@ int main()
                 if(sscanf(ps_output,"%d %d %s %s\n",&pid,&port,password,encrypt_method)!=4)    //销毁僵尸进程
                 {
                     waitpid(pid,NULL,0);
-                    printf("进程 pid=%d 崩溃,已被销毁\n",pid);
+                    printf("Process crashed pid=%d\n",pid);
                     continue;
                 }
                 if(port==server_info.port)
@@ -198,7 +192,7 @@ int main()
                         sprintf(command,"kill -9 %d",pid);
                         system(command);
                         waitpid(pid,NULL,0);
-                        printf("为更新数据而销毁进程 pid=%d port=%d password=%s encrypt_method=%s\n", pid, port,password,encrypt_method);
+                        printf("Kill process for update pid=%d port=%d password=%s encrypt_method=%s\n", pid, port,password,encrypt_method);
                         break;
                     }
                 }

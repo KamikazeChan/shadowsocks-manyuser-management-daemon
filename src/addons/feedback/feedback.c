@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include <time.h>
 #include "iniparser.h"
 #include "mysql/mysql.h"
 
@@ -65,12 +64,6 @@ bool create_config_file()
 
 bool read_config()
 {
-    FILE *fp;
-    fp=fopen("config.ini","r");
-    if(fp==NULL)
-        return false;
-    else
-        fclose(fp);
     dictionary *ini;
     char *ini_name="config.ini";
     ini=iniparser_load(ini_name);
@@ -93,46 +86,26 @@ bool read_config()
     iniparser_freedict(ini);
     return true;
 }
-/*
-char *get_time()
-{
-    time_t timep;
-    struct tm *p;
-    char *gmt;
-    time(&timep);
-    p=gmtime(&timep);
-    sprintf(gmt,"%d-%d %d:%d:%d",1+p->tm_mon,p->tm_mday,p->tm_hour,p->tm_min,p->tm_sec);
-    return gmt;
-}
-*/
+
 int main()
 {
     if (read_config())
-        printf("已载入配置文件\n");
+        printf("Loaded config file\n");
     else
     {
         if(create_config_file())
         {
-            printf("配置文件不存在,已生成\n");
+            printf("Created config file\n");
             read_config();
         }
         else
         {
-            printf("生成配置文件 ./config.ini 失败\n");
+            printf("Create config file failed\n");
             exit(-1);
         }
     }
     while(true)    //不停访问数据库并创建进程
     {
-        MYSQL mysql_connection;
-        MYSQL_ROW mysql_row;
-        MYSQL_RES *mysql_result;
-        char query[256];
-        mysql_init(&mysql_connection);
-        if (!mysql_real_connect(&mysql_connection, config_file.mysql_host, config_file.mysql_user, config_file.mysql_password, config_file.mysql_database, 0, NULL, 0)) {
-            printf("数据库连接失败\n");
-            goto error;
-        }
         FILE *pp;
         char pp_output[256];
         char command[256];
@@ -179,7 +152,17 @@ int main()
             net_load.point++;
         else
             net_load.point=0;
-        printf("网络负载 %lld %lld %lld\n",net_load_5,net_load_10,net_load_15);
+        printf("Net load: %lld KB/S %lld KB/S %lld KB/S\n",net_load_5/1024/300,net_load_10/1024/600,net_load_15/1024/900);
+        //回传到数据库
+        MYSQL mysql_connection;
+        MYSQL_ROW mysql_row;
+        MYSQL_RES *mysql_result;
+        char query[256];
+        mysql_init(&mysql_connection);
+        if (!mysql_real_connect(&mysql_connection, config_file.mysql_host, config_file.mysql_user, config_file.mysql_password, config_file.mysql_database, 0, NULL, 0)) {
+            printf("Connect to database failed\n");
+            goto error;
+        }
         sprintf(query,"UPDATE `%s` SET `net_load_5min` ='%lld KB/S',`net_load_10min` ='%lld KB/S',`net_load_15min` ='%lld KB/S' WHERE `ip` ='%s'",config_file.mysql_table,net_load_5/1024/300,net_load_10/1024/600,net_load_15/1024/900,config_file.server_ip);
         mysql_query(&mysql_connection, query);
         error:
