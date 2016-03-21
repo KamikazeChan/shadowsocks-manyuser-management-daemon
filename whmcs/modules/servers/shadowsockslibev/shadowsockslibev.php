@@ -198,120 +198,119 @@ function shadowsockslibev_ClientArea($params)
     $nodedatabase=$params['configoption5'];
     $nodetable=$params['configoption6'];
     $mysql = mysql_connect($params['serverip'], $params['serverusername'], $params['serverpassword']);
-    if (!$mysql) {
+    if (!$mysql)
         return mysql_error();
-    } else {
-        mysql_select_db($userdatabase,$mysql);
-        $query = mysql_query("SELECT port,passwd,encrypt_method,udp_relay,fast_open FROM ".$usertable." WHERE pid='" . $params['serviceid'] . "'", $mysql);
-        $query = mysql_fetch_array($query);
-        if($query=="") {
-            return "serviceid not found";
-        } else {
-            $port=$query['port'];
-            $passwd=$query['passwd'];
-            $encrypt_method=$query['encrypt_method'];
-            $udp_relay=$query['udp_relay'];
-            $fast_open=$query['fast_open'];
-        }
-        $html="
-            <div style=\"text-align:center;\">
-                <strong><span style=\"font-size:18px;\">连接信息</span></strong>
-                <p>
-                </p>
-                <table style=\"width:100%;\" cellpadding=\"2\" cellspacing=\"0\" align=\"center\" border=\"0\" bordercolor=\"#000000\" class=\"ke-zeroborder\">
-                    <tbody>
-                        <tr>
-                            <td style=\"text-align:center;\">
-                                端口
-                            </td>
-                            <td style=\"text-align:center;\">
-                                {$port}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style=\"text-align:center;\">
-                                密钥
-                            </td>
-                            <td style=\"text-align:center;\">
-                                {$passwd}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style=\"text-align:center;\">
-                                加密方式
-                            </td>
-                            <td style=\"text-align:center;\">
-                                {$encrypt_method}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            </br>
-            <div style=\"text-align:center;\">
-                <strong><span style=\"font-size:18px;\">服务器信息</span></strong>
-                <p>
-                </p>
-                <table style=\"text-align:center;width:100%;\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" class=\"ke-zeroborder\" bordercolor=\"#000000\">
+    if(!mysql_select_db($userdatabase,$mysql))
+        return "userdatabase not found";
+    $query = mysql_query("SELECT port,passwd,encrypt_method,udp_relay,fast_open FROM ".$usertable." WHERE pid='" . $params['serviceid'] . "'", $mysql);
+    $query = mysql_fetch_array($query);
+    if($query=="")
+        return "serviceid not found,pid={$params['serviceid']}";
+    $port=$query['port'];
+    $passwd=$query['passwd'];
+    $encrypt_method=$query['encrypt_method'];
+    $udp_relay=$query['udp_relay'];
+    $fast_open=$query['fast_open'];
+    $html="
+        <div style=\"text-align:center;\">
+            <strong><span style=\"font-size:18px;\">连接信息</span></strong>
+            <p>
+            </p>
+            <table style=\"width:100%;\" cellpadding=\"2\" cellspacing=\"0\" align=\"center\" border=\"0\" bordercolor=\"#000000\" class=\"ke-zeroborder\">
                 <tbody>
                     <tr>
                         <td style=\"text-align:center;\">
-                            IP
+                            端口
                         </td>
                         <td style=\"text-align:center;\">
-                            域名
-                        </td>
-                        <td style=\"text-align:center;\">
-                            地区
-                        </td>
-                        <td style=\"text-align:center;\">
-                            操作系统
-                        </td>
-                        <td style=\"text-align:center;\">
-                            网络负载(5min,10min,15min)
-                        </td>
-                        <td style=\"text-align:center;\">
-                            备注
+                            {$port}
                         </td>
                     </tr>
-        ";
-        mysql_select_db($nodedatabase,$mysql);
-        $query = mysql_query("SELECT ip,domain,area,os,net_load_5min,net_load_10min,net_load_15min,remark FROM ".$nodetable." WHERE `group`='".$group."' ORDER BY `order`",$mysql);
-        $result = mysql_fetch_array($query);
-        if($result=="") {
-            return "no server available";
-        } else {
-            do{
-                $html=$html."
                     <tr>
                         <td style=\"text-align:center;\">
-                            {$result['ip']}
+                            密钥
                         </td>
                         <td style=\"text-align:center;\">
-                            {$result['domain']}
-                        </td>
-                        <td style=\"text-align:center;\">
-                            {$result['area']}
-                        </td>
-                        <td style=\"text-align:center;\">
-                            {$result['os']}
-                        </td>
-                        <td style=\"text-align:center;\">
-                            {$result['net_load_5min']}&nbsp; &nbsp; &nbsp;{$result['net_load_10min']}&nbsp; &nbsp; &nbsp;{$result['net_load_15min']}
-                        </td>
-                        <td style=\"text-align:center;\">
-                            {$result['remark']}
+                            {$passwd}
                         </td>
                     </tr>
-                ";
-            }while($result = mysql_fetch_array($query));
-        }
-        $html=$html."
+                    <tr>
+                        <td style=\"text-align:center;\">
+                            加密方式
+                        </td>
+                        <td style=\"text-align:center;\">
+                            {$encrypt_method}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
-            </div>
-        ";
+        </div>
+        </br>
+        <div style=\"text-align:center;\">
+            <strong><span style=\"font-size:18px;\">服务器信息</span></strong>
+            <p>
+            </p>
+            <table style=\"text-align:center;width:100%;\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" class=\"ke-zeroborder\" bordercolor=\"#000000\">
+            <tbody>
+                <tr>
+                    <td style=\"text-align:center;\">
+                        IP
+                    </td>
+                    <td style=\"text-align:center;\">
+                        域名
+                    </td>
+                    <td style=\"text-align:center;\">
+                        地区
+                    </td>
+                    <td style=\"text-align:center;\">
+                        操作系统
+                    </td>
+                    <td style=\"text-align:center;\">
+                        网络负载(5min,10min,15min)
+                    </td>
+                    <td style=\"text-align:center;\">
+                        备注
+                    </td>
+                </tr>
+    ";
+    if(!mysql_select_db($nodedatabase,$mysql))
+        return "nodedatabase not found";
+    $query = mysql_query("SELECT ip,domain,area,os,net_load_5min,net_load_10min,net_load_15min,remark FROM ".$nodetable." WHERE `group`='".$group."' ORDER BY `order`",$mysql);
+    $result = mysql_fetch_array($query);
+    if($result=="") {
+        return "no server available";
+    } else {
+        do{
+            $html=$html."
+                <tr>
+                    <td style=\"text-align:center;\">
+                        {$result['ip']}
+                    </td>
+                    <td style=\"text-align:center;\">
+                        {$result['domain']}
+                    </td>
+                    <td style=\"text-align:center;\">
+                        {$result['area']}
+                    </td>
+                    <td style=\"text-align:center;\">
+                        {$result['os']}
+                    </td>
+                    <td style=\"text-align:center;\">
+                        {$result['net_load_5min']}&nbsp; &nbsp; &nbsp;{$result['net_load_10min']}&nbsp; &nbsp; &nbsp;{$result['net_load_15min']}
+                    </td>
+                    <td style=\"text-align:center;\">
+                        {$result['remark']}
+                    </td>
+                </tr>
+            ";
+        }while($result = mysql_fetch_array($query));
     }
+    $html=$html."
+            </tbody>
+        </table>
+        </div>
+    ";
     return $html;
 }
+
 ?>
