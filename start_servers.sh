@@ -20,3 +20,4 @@ column_enable="enable"
 server_bind_ip="0.0.0.0"
 server_group="free_user"
 #ss-server -s 0.0.0.0 -p 8989 -k 1234 -m aes-256-cfb &
+test
