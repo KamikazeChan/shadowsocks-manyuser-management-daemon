@@ -7,7 +7,8 @@ function shadowsockslibev_ConfigOptions()
         "用户组" => array("Type" => "text", "Size" => "32"),
         "起始端口" => array("Type" => "text", "Size" => "32"),
         "节点数据库" => array("Type" => "text", "Size" => "32"),
-        "节点表" => array("Type" => "text", "Size" => "32")
+        "节点表" => array("Type" => "text", "Size" => "32"),
+        "附加信息" => array("Type" => "text", "Size" => "32"),
     );
     return $configarray;
 }
@@ -75,7 +76,6 @@ function shadowsockslibev_CreateAccount($params)
                 $update = array("password" => $results['password']);
                 $where = array("id" => $params["serviceid"]);
                 update_query($table, $update, $where);
-                #mysql_query("UPDATE `tblhosting` set password='".$results['password']."' where id='".$params["serviceid"]."'");
                 $password = $params["customfields"]['password'];
             }   //create account
             $query = mysql_query("INSERT INTO "."`".$usertable."`"." (port,passwd,`group`,pid) VALUES ('" . $port . "','" . $password . "','" . $group . "','" . $serviceid . "')", $mysql);
@@ -197,6 +197,7 @@ function shadowsockslibev_ClientArea($params)
     $group=$params['configoption3'];
     $nodedatabase=$params['configoption5'];
     $nodetable=$params['configoption6'];
+    $additioninfo=$params['configoption7'];
     $mysql = mysql_connect($params['serverip'], $params['serverusername'], $params['serverpassword']);
     if (!$mysql)
         return mysql_error();
@@ -266,7 +267,7 @@ function shadowsockslibev_ClientArea($params)
                         操作系统
                     </td>
                     <td style=\"text-align:center;\">
-                        网络负载(5min,10min,15min)
+                        平均网络负载(5min,10min,15min)
                     </td>
                     <td style=\"text-align:center;\">
                         备注
@@ -281,6 +282,9 @@ function shadowsockslibev_ClientArea($params)
         return "no server available";
     } else {
         do{
+            $net_load_5min=round($result['net_load_5min'] / 1024,2);
+            $net_load_10min=round($result['net_load_10min'] / 1024,2);
+            $net_load_15min=round($result['net_load_15min'] / 1024,2);
             $html=$html."
                 <tr>
                     <td style=\"text-align:center;\">
@@ -296,7 +300,7 @@ function shadowsockslibev_ClientArea($params)
                         {$result['os']}
                     </td>
                     <td style=\"text-align:center;\">
-                        {$result['net_load_5min']}&nbsp; &nbsp; &nbsp;{$result['net_load_10min']}&nbsp; &nbsp; &nbsp;{$result['net_load_15min']}
+                        {$net_load_5min} KB/S&nbsp; &nbsp; &nbsp;{$net_load_10min} KB/S&nbsp; &nbsp; &nbsp;{$net_load_15min} KB/S
                     </td>
                     <td style=\"text-align:center;\">
                         {$result['remark']}
@@ -309,6 +313,15 @@ function shadowsockslibev_ClientArea($params)
             </tbody>
         </table>
         </div>
+        </br>
+    ";
+    $html=$html."
+    <div style=\"text-align:center;\">
+        <strong><span style=\"font-size:18px;\">附加信息</span></strong>
+        <p>
+        </p>
+        ${additioninfo}
+    </div>
     ";
     return $html;
 }
