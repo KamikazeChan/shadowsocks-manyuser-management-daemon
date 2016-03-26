@@ -19,6 +19,7 @@ server_net_device="wlan0"       #外网网卡
 net_load_5min=0
 net_load_10min=0
 net_load_15min=0
+
 #工作循环
 while [[ true ]]; do
     #打印时间
