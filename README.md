@@ -11,7 +11,7 @@
 不同版本可能出现问题,因此推荐直接编译安装这里自带的 shadowsocks-libev-2.4.5 ,可能会有依赖缺失,请自行安装.
 
 ```bash
-sudo apt-get install git make gcc g++ build-essential autoconf libtool libssl-dev
+sudo apt-get install git make gcc g++ build-essential autoconf libtool libssl-dev unzip
 git clone https://github.com/czp3009/shadowsocks-manyuser-management-daemon.git
 unzip shadowsocks-libev-2.4.5.zip
 cd shadowsocks-libev-2.4.5
